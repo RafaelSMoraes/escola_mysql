@@ -17,6 +17,7 @@ public class ProfessorController {
         this.professorService = professorService;
     }
 
+    //metodos para usar no http e postman (para fins de testes locais)
     @GetMapping
     public List<Professor> buscarProfessor(){
         return professorService.buscarTodosProfessores();
