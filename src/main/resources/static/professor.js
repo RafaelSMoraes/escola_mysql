@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const apiUrl = 'http://localhost:8080/professor';
   const tbody = document.getElementById('professor-tbody');
   const form = document.getElementById('professor-form');
-  const alunoId = document.getElementById('professor-id');
+  const professorId = document.getElementById('professor-id');
   const nomeInput = document.getElementById('nome');
   const emailInput = document.getElementById('email');
   const telefoneInput = document.getElementById('telefone');
@@ -77,14 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Expor funções globais
-  window.editarAluno = (id, nome, email, telefone) => {
+  window.editarProfessor = (id, nome, email, telefone) => {
     professorId.value = id;
     nomeInput.value = nome;
     emailInput.value = email;
     telefoneInput.value = telefone;
   };
 
-  window.excluirAluno = (id) => {
+  window.excluirProfessor = (id) => {
     if (confirm('Deseja excluir este professor?')) {
       fetch(`${apiUrl}/${id}`, { method: 'DELETE' })
         .then(() => {

@@ -2,13 +2,8 @@ package com.senai.escola.Controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.bind.annotation.*;
 
 import com.senai.escola.Models.Professor;
 import com.senai.escola.Service.ProfessorService;
@@ -35,6 +30,19 @@ public class ProfessorController {
         return professorService.salvarNovoProfessor(professor);
     }
 
+    @PutMapping("/{id}") //metodo para atualizar o nome, email e tel do user
+    public Professor atualizarProfessor(@PathVariable Long id, @RequestBody Professor novoProfessor){
+
+        Professor verifcaProfessor = professorService.buscarProfessorId(id);
+        if (verifcaProfessor == null) return null;
+
+        verifcaProfessor.setNome(novoProfessor.getNome()); //variaveis disponiveis na aba "models/professor"
+        verifcaProfessor.setEmail(novoProfessor.getEmail());
+        verifcaProfessor.setTelefone(novoProfessor.getTelefone());
+
+        return professorService.salvarNovoProfessor(verifcaProfessor);
+    }
+
     @DeleteMapping ("/{id}") //metodo sem retorno usando a variavel Long id
     public void  excluirProfessor(@PathVariable Long id){
         professorService.deletarProfessor(id);
@@ -44,6 +52,8 @@ public class ProfessorController {
     public Professor buscarProfessorId (@PathVariable Long id){
         return professorService.buscarProfessorId(id);
     }
+
+
 
 
 }
