@@ -34,9 +34,19 @@ public class EnderecoController {
         Endereco verificaEndereco = enderecoService.buscarEnderecoId(id);
         if (verificaEndereco == null) return null;
 
-        verificaEndereco.setNome(novoEndereco.getNome()); //variaveis disponiveis na aba "Models/Endereco"
-        verificaEndereco.setEmail(novoEndereco.getEmail());
-        verificaEndereco.setTelefone(novoEndereco.getTelefone());
+        verificaEndereco.setCep(novoEndereco.getCep()); //variaveis disponiveis na aba "Models/Endereco"
+        verificaEndereco.setLogradouro(novoEndereco.getLogradouro());
+        verificaEndereco.setComplemento(novoEndereco.getComplemento());
+        verificaEndereco.setUnidade(novoEndereco.getUnidade());
+        verificaEndereco.setBairro(novoEndereco.getBairro());
+        verificaEndereco.setLocalidade(novoEndereco.getBairro());
+        verificaEndereco.setUf(novoEndereco.getUf());
+        verificaEndereco.setEstado(novoEndereco.getEstado());
+        verificaEndereco.setRegiao(novoEndereco.getRegiao());
+        verificaEndereco.setIbge(novoEndereco.getIbge());
+        verificaEndereco.setGia(novoEndereco.getGia());
+        verificaEndereco.setDdd(novoEndereco.getDdd());
+        verificaEndereco.setSiafi(novoEndereco.getSiafi());
 
         return enderecoService.salvarNovoEndereco(verificaEndereco);
     }
