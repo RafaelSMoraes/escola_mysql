@@ -1,56 +1,55 @@
 package com.senai.escola.Controller;
 
-import java.util.List;
-
-import com.senai.escola.Models.Professor;
+//import com.senai.escola.Models.Aluno;
+import com.senai.escola.Models.Endereco;
+import com.senai.escola.Service.EnderecoService;
 import org.springframework.web.bind.annotation.*;
 
-import com.senai.escola.Models.Aluno;
-import com.senai.escola.Service.AlunoService;
+import java.util.List;
 
 @RestController //define que a classe vire um construtor
-@RequestMapping ("/aluno") //sera o nosso garcom pra integrar com web
+@RequestMapping ("/endereco") //sera o nosso garcom pra integrar com web
 
-public class AlunoController {
+public class EnderecoController {
     //injecao de dependencia
-    private final AlunoService alunoService; //classe privada e imutavel
+    private final EnderecoService enderecoService; //classe privada e imutavel
 
-    public AlunoController(AlunoService alunoService) {
-        this.alunoService = alunoService;
+    public EnderecoController(EnderecoService enderecoService) {
+        this.enderecoService = enderecoService;
     }
 
     @GetMapping
-    public List<Aluno> buscarAlunos(){
-        return alunoService.buscarTodosAlunos();
+    public List<Endereco> buscarEndereco(){
+        return enderecoService.buscarTodosEnderecos();
     }
 
     @PostMapping
-    public Aluno salvar(@RequestBody Aluno aluno){
-        return alunoService.salvarNovoAluno(aluno);
+    public Endereco salvar(@RequestBody Endereco endereco){
+        return enderecoService.salvarNovoEndereco(endereco);
     }
 
-    @PutMapping("/{id}") //metodo para atualizar o nome, email e tel do user
-    public Aluno atualizarAluno(@PathVariable Long id, @RequestBody Aluno novoAluno){
+    @PutMapping("/{id}") //metodo para atualizar os dados do user
+    public Endereco atualizarEndereco(@PathVariable Long id, @RequestBody Endereco novoEndereco){
 
-        Aluno verificaAluno = alunoService.buscarAlunoId(id);
-        if (verificaAluno == null) return null;
+        Endereco verificaEndereco = enderecoService.buscarEnderecoId(id);
+        if (verificaEndereco == null) return null;
 
-        verificaAluno.setNome(novoAluno.getNome()); //variaveis disponiveis na aba "Models/Aluno"
-        verificaAluno.setEmail(novoAluno.getEmail());
-        verificaAluno.setTelefone(novoAluno.getTelefone());
+        verificaEndereco.setNome(novoEndereco.getNome()); //variaveis disponiveis na aba "Models/Endereco"
+        verificaEndereco.setEmail(novoEndereco.getEmail());
+        verificaEndereco.setTelefone(novoEndereco.getTelefone());
 
-        return alunoService.salvarNovoAluno(verificaAluno);
+        return enderecoService.salvarNovoEndereco(verificaEndereco);
     }
 
 
     @DeleteMapping ("/{id}") //metodo sem retorno usando a variavel Long id
-    public void  excluiraluno(@PathVariable Long id){
-        alunoService.deletarAluno(id);
+    public void  excluirendereco(@PathVariable Long id){
+        enderecoService.deletarEndereco(id);
     }
 
     @GetMapping("/{id}") //metodo pra buscar UM aluno especifico
-    public Aluno buscaAlunoPorId (@PathVariable Long id){
-        return alunoService.buscarAlunoId(id);
+    public Endereco buscarEnderecoId (@PathVariable Long id){
+        return enderecoService.buscarEnderecoId(id);
     }
 
 

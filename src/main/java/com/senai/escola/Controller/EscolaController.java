@@ -1,56 +1,61 @@
 package com.senai.escola.Controller;
 
-import java.util.List;
 
-import com.senai.escola.Models.Professor;
+//import com.senai.escola.Interface.EscolaRepository;
+import com.senai.escola.Models.Escola;
+import com.senai.escola.Service.EscolaService;
 import org.springframework.web.bind.annotation.*;
 
-import com.senai.escola.Models.Aluno;
-import com.senai.escola.Service.AlunoService;
+import java.util.List;
 
 @RestController //define que a classe vire um construtor
-@RequestMapping ("/aluno") //sera o nosso garcom pra integrar com web
+@RequestMapping ("/escola") //sera o nosso garcom pra integrar com web
 
-public class AlunoController {
+public class EscolaController {
     //injecao de dependencia
-    private final AlunoService alunoService; //classe privada e imutavel
+    private final EscolaService escolaService; //classe privada e imutavel
 
-    public AlunoController(AlunoService alunoService) {
-        this.alunoService = alunoService;
+    public EscolaController(EscolaService escolaService) {
+        this.escolaService = escolaService;
     }
 
     @GetMapping
-    public List<Aluno> buscarAlunos(){
-        return alunoService.buscarTodosAlunos();
+    public List<Escola> BuscarEscolas(){
+        return escolaService.buscarEscolas();
     }
 
     @PostMapping
-    public Aluno salvar(@RequestBody Aluno aluno){
-        return alunoService.salvarNovoAluno(aluno);
+    public Escola salvar(@RequestBody Escola escola){
+        return escolaService.salvarNovaEscola(escola);
     }
 
-    @PutMapping("/{id}") //metodo para atualizar o nome, email e tel do user
-    public Aluno atualizarAluno(@PathVariable Long id, @RequestBody Aluno novoAluno){
+    @PutMapping("/{id}") //metodo para atualizar o nome, email e tel do user (no caso, a escola)
+    public Escola atualizarEscola (@PathVariable Long id, @RequestBody Escola novaEscola){
 
-        Aluno verificaAluno = alunoService.buscarAlunoId(id);
-        if (verificaAluno == null) return null;
+        Escola verificaEscola = escolaService.buscarEscolasId(id);
+        if (verificaEscola == null) return null;
 
-        verificaAluno.setNome(novoAluno.getNome()); //variaveis disponiveis na aba "Models/Aluno"
-        verificaAluno.setEmail(novoAluno.getEmail());
-        verificaAluno.setTelefone(novoAluno.getTelefone());
+        verificaEscola.setNome(novaEscola.getNome()); //construtores disponiveis na aba "Models/Escola"
+        verificaEscola.setEmail(novaEscola.getEmail());
+        verificaEscola.setTelefone(novaEscola.getTelefone());
 
-        return alunoService.salvarNovoAluno(verificaAluno);
+        verificaEscola.setCnpj(novaEscola.getCnpj());
+        verificaEscola.setComponentes(novaEscola.getComponentes());
+        verificaEscola.setTurmas(novaEscola.getTurmas());
+        verificaEscola.setStatusAluno(novaEscola.getStatusAluno());
+
+        return escolaService.salvarNovaEscola(verificaEscola);
     }
 
 
     @DeleteMapping ("/{id}") //metodo sem retorno usando a variavel Long id
-    public void  excluiraluno(@PathVariable Long id){
-        alunoService.deletarAluno(id);
+    public void  excluirEscola(@PathVariable Long id){
+        escolaService.deletarEscola(id);
     }
 
-    @GetMapping("/{id}") //metodo pra buscar UM aluno especifico
-    public Aluno buscaAlunoPorId (@PathVariable Long id){
-        return alunoService.buscarAlunoId(id);
+    @GetMapping("/{id}") //metodo pra buscar UMA escola especifica
+    public Escola buscarEscolas (@PathVariable Long id){
+        return escolaService.buscarEscolasId(id);
     }
 
 

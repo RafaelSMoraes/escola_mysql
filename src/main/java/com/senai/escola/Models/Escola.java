@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 // deve satisfação a interface (AlunoRepository)
 
 @Entity
-public class Aluno {
+public class Escola {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +17,11 @@ public class Aluno {
     private String nome;
     private String email;
     private String telefone;
+
+    private String cnpj;
+    private String componentes;
+    private String turmas;
+    private Boolean statusAluno;
 
     public Long getId() {
         return id;
@@ -50,5 +55,35 @@ public class Aluno {
         this.telefone = telefone;
     }
 
+    public String getCnpj() {
+        return cnpj;
+    }
 
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getComponentes() {
+        return componentes;
+    }
+
+    public void setComponentes(String componentes) {
+        this.componentes = componentes;
+    }
+
+    public String getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(String turmas) {
+        this.turmas = turmas;
+    }
+
+    public Boolean getStatusAluno() {
+        return statusAluno;
+    }
+
+    public void setStatusAluno(Boolean statusAluno) {
+        this.statusAluno = statusAluno;
+    }
 }
