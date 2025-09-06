@@ -5,18 +5,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-// deve satisfação a interface (AlunoRepository)
+// deve satisfação a interface (UsuarioRepository)
 
 @Entity
-public class Aluno {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
-    private String email;
-    private String telefone;
+    private String username;
+    private String senha;
+    private String role; //Ex Admin, Aluno e user
 
     public Long getId() {
         return id;
@@ -26,29 +26,28 @@ public class Aluno {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getRole() {
+        return role;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setRole(String role) {
+        this.role = role;
     }
-
 
 }

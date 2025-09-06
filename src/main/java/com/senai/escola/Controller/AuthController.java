@@ -1,56 +1,39 @@
 package com.senai.escola.Controller;
 
-import java.util.List;
-
-import com.senai.escola.Models.Professor;
+import com.senai.escola.Models.Usuario;
+import com.senai.escola.Service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
-import com.senai.escola.Models.Aluno;
-import com.senai.escola.Service.AlunoService;
+import java.util.List;
 
 @RestController //define que a classe vire um construtor
-@RequestMapping ("/aluno") //sera o nosso garcom pra integrar com web
+@RequestMapping ("/auth")
+@CrossOrigin (origins = "*")
+//sera o nosso garcom pra integrar com web
 
-public class AlunoController {
+public class AuthController {
     //injecao de dependencia
-    private final AlunoService alunoService; //classe privada e imutavel
+    private final UsuarioService usuarioService; //classe privada e imutavel
 
-    public AlunoController(AlunoService alunoService) {
-        this.alunoService = alunoService;
-    }
-
-    @GetMapping
-    public List<Aluno> buscarAlunos(){
-        return alunoService.buscarTodosAlunos();
-    }
-
-    @PostMapping
-    public Aluno salvar(@RequestBody Aluno aluno){
-        return alunoService.salvarNovoAluno(aluno);
-    }
-
-    @PutMapping("/{id}") //metodo para atualizar o nome, email e tel do user
-    public Aluno atualizarAluno(@PathVariable Long id, @RequestBody Aluno novoAluno){
-
-        Aluno verificaAluno = alunoService.buscarAlunoId(id);
-        if (verificaAluno == null) return null;
-
-        verificaAluno.setNome(novoAluno.getNome()); //variaveis disponiveis na aba "Models/Aluno"
-        verificaAluno.setEmail(novoAluno.getEmail());
-        verificaAluno.setTelefone(novoAluno.getTelefone());
-
-        return alunoService.salvarNovoAluno(verificaAluno);
+    public AuthController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
 
-    @DeleteMapping ("/{id}") //metodo sem retorno usando a variavel Long id
-    public void  excluiraluno(@PathVariable Long id){
-        alunoService.deletarAluno(id);
+    @PostMapping("/login")
+    public String salvar(@RequestBody Usuario usuario){
+       Usuario user = usuarioService.fazerLogin(usuario.getUsername(), usuario.getSenha());
+
+       if (user != null){
+           return "Seja bem-vindo" + usuario.getUsername();
+       }
+       return "usuario não existe";
+
     }
 
-    @GetMapping("/{id}") //metodo pra buscar UM aluno especifico
-    public Aluno buscaAlunoPorId (@PathVariable Long id){
-        return alunoService.buscarAlunoId(id);
+    @PostMapping("/register")
+    public Usuario register(@RequestBody Usuario usuario){
+        return usuarioService.salvarNovoUsuario(usuario);
     }
 
 
