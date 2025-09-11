@@ -33,7 +33,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public Usuario register(@RequestBody Usuario usuario){
-        return usuarioService.salvarNovoUsuario(usuario);
+        return usuarioService.salvarUsuario(usuario);
     }
 
 

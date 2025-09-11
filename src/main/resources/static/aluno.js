@@ -22,10 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
             <td>
               <button class="btn btn-warning btn-sm me-2"
                 onclick="editarAluno(${aluno.id}, '${aluno.nome}', '${aluno.email}', '${aluno.telefone}')">
-                Editar
+                <i class="far fa-edit"></i>
               </button>
               <button class="btn btn-danger btn-sm" onclick="excluirAluno(${aluno.id})">
-                Excluir
+                <i class="fa fa-trash" aria-hidden="true"></i>
               </button>
             </td>
           `;
